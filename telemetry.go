@@ -29,7 +29,9 @@ func ReportErrorRequest(r *http.Request, err error) {
 	}
 }
 
-func ReportPanic(ctx context.Context) {
+// ReportPanics report any panic that can be recovered if it happens. It should be called with defer before any code
+// that should be protected.
+func ReportPanics(ctx context.Context) {
 	if r := recover(); r != nil {
 		for _, reporter := range settings.ErrorReporters {
 			reporter.ReportPanic(ctx, r)
