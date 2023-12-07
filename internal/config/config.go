@@ -12,4 +12,5 @@ type Settings struct {
 type ErrorReporter interface {
 	Report(ctx context.Context, err error)
 	ReportRequest(r *http.Request, err error)
+	ReportPanic(ctx context.Context, panicErr any)
 }

@@ -28,3 +28,11 @@ func ReportErrorRequest(r *http.Request, err error) {
 		reporter.ReportRequest(r, err)
 	}
 }
+
+func ReportPanic(ctx context.Context) {
+	if r := recover(); r != nil {
+		for _, reporter := range settings.ErrorReporters {
+			reporter.ReportPanic(ctx, r)
+		}
+	}
+}
