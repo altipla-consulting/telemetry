@@ -9,11 +9,19 @@ import (
 
 type Option func(settings *config.Settings)
 
-var settings = new(config.Settings)
+var (
+	settings    = new(config.Settings)
+	initialized = false
+)
 
 func Configure(opts ...Option) {
-	for _, opt := range opts {
-		opt(settings)
+	if !initialized {
+		for _, opt := range opts {
+			opt(settings)
+		}
+		initialized = true
+	} else {
+		panic("Configure must be called only once")
 	}
 }
 
