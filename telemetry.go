@@ -11,17 +11,17 @@ type Option func(settings *config.Settings)
 
 var (
 	settings    = new(config.Settings)
-	initialized = false
+	configured = false
 )
 
 func Configure(opts ...Option) {
-	if !initialized {
+	if !configured {
 		for _, opt := range opts {
 			opt(settings)
 		}
-		initialized = true
+		configured = true
 	} else {
-		panic("Configure must be called only once")
+		panic("telemetry.Configure() must be called only once at the start of the program")
 	}
 }
 
