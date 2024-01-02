@@ -9,11 +9,19 @@ import (
 
 type Option func(settings *config.Settings)
 
-var settings = new(config.Settings)
+var (
+	settings    = new(config.Settings)
+	configured = false
+)
 
 func Configure(opts ...Option) {
-	for _, opt := range opts {
-		opt(settings)
+	if !configured {
+		for _, opt := range opts {
+			opt(settings)
+		}
+		configured = true
+	} else {
+		panic("telemetry.Configure() must be called only once at the start of the program")
 	}
 }
 
