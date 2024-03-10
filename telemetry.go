@@ -72,6 +72,6 @@ func (defaultReporter) ReportErrorRequest(r *http.Request, err error) {
 	ReportErrorRequest(r, err)
 }
 
-func (defaultReporter) ReportPanic(ctx context.Context, panicErr any) {
+func (defaultReporter) ReportPanics(ctx context.Context, panicErr any) {
 	ReportPanics(ctx)
 }
