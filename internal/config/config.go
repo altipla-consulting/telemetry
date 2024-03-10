@@ -6,11 +6,11 @@ import (
 )
 
 type Settings struct {
-	ErrorReporters []ErrorReporter
+	Collectors []Collector
 }
 
-type ErrorReporter interface {
-	Report(ctx context.Context, err error)
-	ReportRequest(r *http.Request, err error)
+type Collector interface {
+	ReportError(ctx context.Context, err error)
+	ReportErrorRequest(r *http.Request, err error)
 	ReportPanic(ctx context.Context, panicErr any)
 }

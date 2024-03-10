@@ -16,7 +16,7 @@ import (
 
 func Standard() telemetry.Option {
 	return func(settings *config.Settings) {
-		settings.ErrorReporters = append(settings.ErrorReporters, &logReporter{})
+		settings.Collectors = append(settings.Collectors, new(logCollector))
 
 		if env.IsLocal() {
 			logger := slog.New(slog.NewTextHandler(os.Stderr, &slog.HandlerOptions{
@@ -41,20 +41,17 @@ func Standard() telemetry.Option {
 	}
 }
 
-type logReporter struct{}
+type logCollector struct{}
 
-// Report implements config.ErrorReporter.
-func (*logReporter) Report(ctx context.Context, err error) {
+func (*logCollector) ReportError(ctx context.Context, err error) {
 	// empty
 }
 
-// ReportPanic implements config.ErrorReporter.
-func (*logReporter) ReportPanic(ctx context.Context, panicErr any) {
+func (*logCollector) ReportErrorRequest(r *http.Request, err error) {
+	// empty
+}
+
+func (*logCollector) ReportPanic(ctx context.Context, panicErr any) {
 	rec := errors.Recover(panicErr)
 	slog.Error("Panic recovered", "error", rec.Error())
-}
-
-// ReportRequest implements config.ErrorReporter.
-func (*logReporter) ReportRequest(r *http.Request, err error) {
-	// empty
 }
