@@ -12,6 +12,7 @@ import (
 
 	"github.com/altipla-consulting/telemetry"
 	"github.com/altipla-consulting/telemetry/internal/config"
+	"github.com/lmittmann/tint"
 )
 
 func Standard() telemetry.Option {
@@ -19,10 +20,9 @@ func Standard() telemetry.Option {
 		settings.Collectors = append(settings.Collectors, new(logCollector))
 
 		if env.IsLocal() {
-			logger := slog.New(slog.NewTextHandler(os.Stderr, &slog.HandlerOptions{
+			slog.SetDefault(slog.New(tint.NewHandler(os.Stderr, &tint.Options{
 				Level: slog.LevelDebug,
-			}))
-			slog.SetDefault(logger)
+			})))
 
 			logrus.SetFormatter(&logrus.TextFormatter{
 				ForceColors: true,
