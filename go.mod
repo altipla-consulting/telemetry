@@ -11,6 +11,7 @@ require (
 
 require (
 	github.com/getsentry/sentry-go v0.19.0 // indirect
+	github.com/lmittmann/tint v1.0.4 // indirect
 	golang.org/x/sys v0.5.0 // indirect
 	golang.org/x/text v0.7.0 // indirect
 )
