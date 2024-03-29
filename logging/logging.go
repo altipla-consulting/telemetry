@@ -8,7 +8,6 @@ import (
 
 	"github.com/altipla-consulting/env"
 	"github.com/altipla-consulting/errors"
-	"github.com/sirupsen/logrus"
 	"github.com/lmittmann/tint"
 
 	"github.com/altipla-consulting/telemetry"
@@ -31,11 +30,6 @@ func stdLevel(level slog.Level) telemetry.Option {
 			slog.SetDefault(slog.New(tint.NewHandler(os.Stderr, &tint.Options{
 				Level: slog.LevelDebug,
 			})))
-
-			logrus.SetFormatter(&logrus.TextFormatter{
-				ForceColors: true,
-			})
-			logrus.SetLevel(logrus.DebugLevel)
 
 			return
 		}
@@ -71,8 +65,6 @@ func stdLevel(level slog.Level) telemetry.Option {
 			},
 		}))
 		slog.SetDefault(logger)
-
-		logrus.SetFormatter(new(logrus.JSONFormatter))
 	}
 }
 
