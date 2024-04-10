@@ -35,15 +35,11 @@ func stdLevel(level slog.Level) telemetry.Option {
 		}
 
 		logger := slog.New(slog.NewJSONHandler(os.Stderr, &slog.HandlerOptions{
-			AddSource: true,
-			Level:     level,
+			Level: level,
 			ReplaceAttr: func(groups []string, a slog.Attr) slog.Attr {
 				switch {
 				case a.Key == slog.MessageKey:
 					a.Key = "message"
-
-				case a.Key == slog.SourceKey:
-					a.Key = "logging.googleapis.com/sourceLocation"
 
 				case a.Key == slog.LevelKey:
 					a.Key = "severity"
