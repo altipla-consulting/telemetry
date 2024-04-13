@@ -22,6 +22,10 @@ func Debug() telemetry.Option {
 	return stdLevel(slog.LevelDebug)
 }
 
+func Trace() telemetry.Option {
+	return stdLevel(LevelTrace)
+}
+
 func stdLevel(level slog.Level) telemetry.Option {
 	return func(settings *config.Settings) {
 		settings.Collectors = append(settings.Collectors, new(logCollector))
