@@ -5,6 +5,7 @@ import (
 	"log/slog"
 	"net/http"
 	"os"
+	"runtime/debug"
 
 	"github.com/altipla-consulting/env"
 	"github.com/altipla-consulting/errors"
@@ -80,5 +81,10 @@ func (*logCollector) ReportErrorRequest(r *http.Request, err error) {
 
 func (*logCollector) ReportPanic(ctx context.Context, panicErr any) {
 	rec := errors.Recover(panicErr)
-	slog.Error("Panic recovered", "error", rec.Error())
+	slog.Error("Panic recovered",
+		slog.String("error", rec.Error()),
+		slog.String("details", errors.Details(rec)))
+	if env.IsLocal() {
+		slog.Error(string(debug.Stack()))
+	}
 }
