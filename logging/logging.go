@@ -33,7 +33,7 @@ func stdLevel(level slog.Level) telemetry.Option {
 
 		if env.IsLocal() {
 			slog.SetDefault(slog.New(tint.NewHandler(os.Stderr, &tint.Options{
-				Level: slog.LevelDebug,
+				Level: level,
 			})))
 
 			return
