@@ -4,6 +4,7 @@ import (
 	"context"
 	"net/http"
 
+	"github.com/altipla-consulting/sentry"
 	"github.com/altipla-consulting/telemetry/internal/config"
 )
 
@@ -57,6 +58,15 @@ func ReportPanics(ctx context.Context) {
 			reporter.ReportPanic(ctx, r)
 		}
 	}
+}
+
+func WithAdvancedReporterContext(ctx context.Context) context.Context {
+	ctx = sentry.WithContext(ctx)
+	return ctx
+}
+
+func WithAdvancedReporterRequest(r *http.Request) *http.Request {
+	return r.WithContext(WithAdvancedReporterContext(r.Context()))
 }
 
 // DefaultReporter merging all the methods in a single struct that can be passed to external interfaces.
