@@ -16,24 +16,24 @@ import (
 )
 
 func Standard() telemetry.Option {
-	return stdLevel(slog.LevelInfo)
+	return configureLevels(slog.LevelInfo, slog.LevelDebug)
 }
 
 func Debug() telemetry.Option {
-	return stdLevel(slog.LevelDebug)
+	return configureLevels(slog.LevelDebug, slog.LevelDebug)
 }
 
 func Trace() telemetry.Option {
-	return stdLevel(LevelTrace)
+	return configureLevels(LevelTrace, LevelTrace)
 }
 
-func stdLevel(level slog.Level) telemetry.Option {
+func configureLevels(level slog.Level, localLevel slog.Level) telemetry.Option {
 	return func(settings *config.Settings) {
 		settings.Collectors = append(settings.Collectors, new(logCollector))
 
 		if env.IsLocal() {
 			slog.SetDefault(slog.New(tint.NewHandler(os.Stderr, &tint.Options{
-				Level: level,
+				Level: localLevel,
 			})))
 
 			return
