@@ -10,7 +10,7 @@ import (
 func TestLogCollectorReportPanic(t *testing.T) {
 	var collector logCollector
 	defer func() {
-		collector.ReportPanic(context.Background(), errors.Recover(recover()))
+		collector.ReportError(context.Background(), errors.Recover(recover()))
 	}()
 	panic("test failure")
 }

@@ -3,9 +3,7 @@ package logging
 import (
 	"context"
 	"log/slog"
-	"net/http"
 	"os"
-	"runtime/debug"
 
 	"github.com/altipla-consulting/env"
 	"github.com/altipla-consulting/errors"
@@ -72,18 +70,7 @@ func configureLevels(level slog.Level, localLevel slog.Level) telemetry.Option {
 type logCollector struct{}
 
 func (*logCollector) ReportError(ctx context.Context, err error) {
-	// empty
-}
-
-func (*logCollector) ReportErrorRequest(r *http.Request, err error) {
-	// empty
-}
-
-func (*logCollector) ReportPanic(ctx context.Context, err error) {
-	slog.Error("Panic recovered",
-		slog.String("error", err.Error()),
-		slog.String("details", errors.Details(err)))
 	if env.IsLocal() {
-		slog.Error(string(debug.Stack()))
+		slog.Error(string(errors.Stack(err)))
 	}
 }

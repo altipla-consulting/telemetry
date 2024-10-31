@@ -2,7 +2,6 @@ package sentry
 
 import (
 	"context"
-	"net/http"
 	"os"
 
 	"github.com/altipla-consulting/sentry"
@@ -27,12 +26,4 @@ type sentryCollector struct {
 
 func (c *sentryCollector) ReportError(ctx context.Context, err error) {
 	c.client.Report(ctx, err)
-}
-
-func (c *sentryCollector) ReportErrorRequest(r *http.Request, err error) {
-	c.client.ReportRequest(r, err)
-}
-
-func (c *sentryCollector) ReportPanic(ctx context.Context, err error) {
-	c.client.ReportPanic(ctx, err)
 }
