@@ -12,5 +12,5 @@ type Settings struct {
 type Collector interface {
 	ReportError(ctx context.Context, err error)
 	ReportErrorRequest(r *http.Request, err error)
-	ReportPanic(ctx context.Context, panicErr any)
+	ReportPanic(ctx context.Context, err error)
 }

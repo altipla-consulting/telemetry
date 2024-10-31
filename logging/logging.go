@@ -79,11 +79,10 @@ func (*logCollector) ReportErrorRequest(r *http.Request, err error) {
 	// empty
 }
 
-func (*logCollector) ReportPanic(ctx context.Context, panicErr any) {
-	rec := errors.Recover(panicErr)
+func (*logCollector) ReportPanic(ctx context.Context, err error) {
 	slog.Error("Panic recovered",
-		slog.String("error", rec.Error()),
-		slog.String("details", errors.Details(rec)))
+		slog.String("error", err.Error()),
+		slog.String("details", errors.Details(err)))
 	if env.IsLocal() {
 		slog.Error(string(debug.Stack()))
 	}

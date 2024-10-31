@@ -4,7 +4,9 @@ import (
 	"context"
 	"net/http"
 
+	"github.com/altipla-consulting/errors"
 	"github.com/altipla-consulting/sentry"
+
 	"github.com/altipla-consulting/telemetry/internal/config"
 )
 
@@ -48,16 +50,19 @@ func ReportErrorRequest(r *http.Request, err error) {
 
 // ReportPanics report any panic that can be recovered if it happens. It should be called with defer before any code
 // that should be protected.
-func ReportPanics(ctx context.Context) {
+func ReportPanics(ctx context.Context) error {
 	if !configured {
 		panic("telemetry.Configure() must be called before reporting any panic")
 	}
 
-	if r := recover(); r != nil { // revive:disable-line:defer
+	if r := errors.Recover(recover()); r != nil { // revive:disable-line:defer
 		for _, reporter := range settings.Collectors {
 			reporter.ReportPanic(ctx, r)
 		}
+		return r
 	}
+
+	return nil
 }
 
 func WithAdvancedReporterContext(ctx context.Context) context.Context {
