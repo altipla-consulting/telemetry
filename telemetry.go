@@ -37,6 +37,7 @@ func ReportError(ctx context.Context, err error) {
 	}
 }
 
+// Deprecated: Use ReportError instead, the request is detected automatically.
 func ReportErrorRequest(r *http.Request, err error) {
 	if !configured {
 		panic("telemetry.Configure() must be called before reporting any error")
