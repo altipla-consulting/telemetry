@@ -7,14 +7,16 @@ import (
 	"time"
 
 	"github.com/altipla-consulting/telemetry"
-	"github.com/getsentry/sentry-go"
 )
 
+// Fatal logs a critical error and exits the program.
 func Fatal(msg string, err error) {
-	slog.Log(context.Background(), LevelCritical, msg, slog.String("err", err.Error()))
-	telemetry.ReportError(context.Background(), err)
-	if os.Getenv("SENTRY_DSN") != "" {
-		sentry.Flush(5 * time.Second)
-	}
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	slog.Log(ctx, LevelCritical, msg, slog.String("err", err.Error()))
+	telemetry.ReportError(ctx, err)
+	telemetry.Flush()
+
 	os.Exit(1)
 }

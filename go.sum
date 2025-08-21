@@ -4,6 +4,8 @@ github.com/altipla-consulting/errors v1.4.0 h1:ofrY4Ntug8hWOC5tWtD0hGcyg/NthGGyt
 github.com/altipla-consulting/errors v1.4.0/go.mod h1:x2/+JzMSga6sEUe8FNKIwWRshteAnNJo2WY81m3US6o=
 github.com/altipla-consulting/sentry v0.6.0 h1:ibX2Y/TTyhSCafnj9b6ZGS7SpVK5sups5A+zHnQLP/8=
 github.com/altipla-consulting/sentry v0.6.0/go.mod h1:KZkof/Xq3wBKvqvx22FgdSQUvkCJ11rv/08Mw771Frs=
+github.com/altipla-consulting/sentry v0.6.2 h1:1+4XrjD+vVBqzbLW1kGPG9va4yA/jgG0GpeoKmcHAyU=
+github.com/altipla-consulting/sentry v0.6.2/go.mod h1:KZkof/Xq3wBKvqvx22FgdSQUvkCJ11rv/08Mw771Frs=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/getsentry/sentry-go v0.29.1 h1:DyZuChN8Hz3ARxGVV8ePaNXh1dQ7d76AiB117xcREwA=

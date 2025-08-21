@@ -37,6 +37,13 @@ func ReportError(ctx context.Context, err error) {
 	}
 }
 
+// Flush any pending messages or events.
+func Flush() {
+	for _, collector := range settings.Collectors {
+		collector.Flush()
+	}
+}
+
 // Deprecated: Use ReportError() instead, the request is detected automatically.
 func ReportErrorRequest(r *http.Request, err error) {
 	ReportError(r.Context(), err)

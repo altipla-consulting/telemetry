@@ -3,6 +3,7 @@ package sentry
 import (
 	"context"
 	"os"
+	"time"
 
 	"github.com/altipla-consulting/sentry"
 
@@ -26,4 +27,8 @@ type sentryCollector struct {
 
 func (c *sentryCollector) ReportError(ctx context.Context, err error) {
 	c.client.Report(ctx, err)
+}
+
+func (c *sentryCollector) Flush() {
+	c.client.Flush(5 * time.Second)
 }

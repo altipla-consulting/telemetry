@@ -74,3 +74,5 @@ func (*logCollector) ReportError(ctx context.Context, err error) {
 		slog.Error(string(errors.Stack(err)))
 	}
 }
+
+func (*logCollector) Flush() {}

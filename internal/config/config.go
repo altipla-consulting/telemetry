@@ -10,4 +10,5 @@ type Settings struct {
 
 type Collector interface {
 	ReportError(ctx context.Context, err error)
+	Flush()
 }
